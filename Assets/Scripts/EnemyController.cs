@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
 {
-    // Start is called before the first frame update
-    void Start()
+    public FloatVariable maxHp;
+    float hp;
+
+    void OnEnable()
     {
-        
+        hp = maxHp.Value;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Kill()
     {
-        
+
+    }
+
+    public void Damage(float amt)
+    {
+
     }
 }
