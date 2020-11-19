@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
     public float grav = 20f;
     public float rotSpd;
 
+    float iframes = 0;
+
     void OnEnable()
     {
         //bod = GetComponent<Rigidbody>();
@@ -74,6 +76,8 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         Camera.main.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * rotSpd, 0);
+
+        if (iframes > 0) iframes -= Time.deltaTime;
     }
 
     public void Kill()
@@ -83,6 +87,16 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
 
     public void Damage(float amt)
     {
+        if (iframes <= 0)
+        {
+            hp -= amt;
 
+            if (hp <= 0)
+            {
+                Kill();
+            }
+
+            iframes = 0.01f;
+        }
     }
 }

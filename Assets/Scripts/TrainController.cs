@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
+public class TrainController : MonoBehaviour, IDamageable<float>, IKillable
 {
     public FloatVariable maxHp;
     float hp;
-
     float iframes;
 
-    void OnEnable()
+    void Awake()
     {
         hp = maxHp.Value;
     }
 
     void Update()
     {
-
-
         if (iframes > 0) iframes -= Time.deltaTime;
     }
 
