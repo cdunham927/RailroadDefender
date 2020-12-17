@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
 
     float iframes = 0;
 
+    public bool canMove = true;
+
     void OnEnable()
     {
         //bod = GetComponent<Rigidbody>();
@@ -69,7 +71,10 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
             movement.y -= grav * Time.deltaTime;
         }
 
-        if (controller.enabled) controller.Move(movement * Time.deltaTime);
+        if (canMove)
+        {
+            if (controller.enabled) controller.Move(movement * Time.deltaTime);
+        }
 
         //Rotation
         rotationX += -Input.GetAxis("Mouse Y") * rotSpd;
