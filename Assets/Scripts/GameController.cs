@@ -6,6 +6,19 @@ using System.Linq;
 public class GameController : MonoBehaviour
 {
     public float dmg = 5;
+    public PlayerController2D[] players;
+    [SerializeField]
+    int curPlayer = 0;
+    CameraFollow2D cam;
+
+    private void OnEnable()
+    {
+        cam = FindObjectOfType<CameraFollow2D>();
+        players = FindObjectsOfType<PlayerController2D>();
+        curPlayer = 0;
+        players[0].canMove = true;
+        cam.SetTarget(players[0].transform);
+    }
 
     private void Update()
     {
@@ -19,6 +32,14 @@ public class GameController : MonoBehaviour
                     d.Damage(dmg);
                 }
             }
+        }
+
+        if (players.Length > 1 && Input.GetKeyDown(KeyCode.T))
+        {
+            players[curPlayer].canMove = false;
+            curPlayer = (curPlayer + 1) % players.Length;
+            cam.SetTarget(players[curPlayer].transform);
+            players[curPlayer].canMove = true;
         }
     }
 }
