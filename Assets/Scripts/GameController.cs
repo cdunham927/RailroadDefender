@@ -10,13 +10,16 @@ public class GameController : MonoBehaviour
     [SerializeField]
     int curPlayer = 0;
     CameraFollow2D cam;
+    UIController ui;
 
     private void OnEnable()
     {
+        ui = FindObjectOfType<UIController>();
         cam = FindObjectOfType<CameraFollow2D>();
         players = FindObjectsOfType<PlayerController2D>();
         curPlayer = 0;
         players[0].canMove = true;
+        ui.SwitchUI(players[0]);
         cam.SetTarget(players[0].transform);
     }
 
@@ -32,12 +35,18 @@ public class GameController : MonoBehaviour
                     d.Damage(dmg);
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                players[curPlayer].Damage(dmg);
+            }
         }
 
         if (players.Length > 1 && Input.GetKeyDown(KeyCode.T))
         {
             players[curPlayer].canMove = false;
             curPlayer = (curPlayer + 1) % players.Length;
+            ui.SwitchUI(players[curPlayer]);
             cam.SetTarget(players[curPlayer].transform);
             players[curPlayer].canMove = true;
         }

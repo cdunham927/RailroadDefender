@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2317862825484778879}
   - component: {fileID: 2317862825484778878}
   m_Layer: 9
-  m_Name: Player
+  m_Name: PistolCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,9 +135,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2aa021adc012c478ddbd2e42abb2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spd: 1200
+  maxHealth: {fileID: 11400000, guid: b66ee12ac241ce54d88542f51f14c60d, type: 2}
+  health: {fileID: 11400000, guid: 6cdab79f81f987d44a4cf90e8385d41a, type: 2}
+  spd: {fileID: 11400000, guid: 9f4c1bcb20739db4da48ec05ea4675fd, type: 2}
+  walkSpd: {fileID: 11400000, guid: b71dbe0ed858dbd4db954f168d9142d8, type: 2}
+  runSpd: {fileID: 11400000, guid: e0cefde8c2a30f14daeb009318d3c0c1, type: 2}
   bounds: {x: 0, y: 0}
   aimSpd: 8
+  maxStamina: {fileID: 11400000, guid: 4f482eaf7a026124daa6382211c4cb6a, type: 2}
+  stamina: {fileID: 11400000, guid: 3f6bef0e026777f40864bbe36359534e, type: 2}
+  staminaRecoveryRate: 1
+  canMove: 0
 --- !u!1 &2317862825564317427
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +157,7 @@ GameObject:
   - component: {fileID: 2317862825564317436}
   - component: {fileID: 2317862825564317437}
   - component: {fileID: 2317862825564317438}
+  - component: {fileID: 2180070442877679452}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -234,12 +243,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c1859a99a454c4197dc6dc48a7eeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
   spawnPoint: {fileID: 9069542962138524845}
+  gun: {fileID: 2180070442877679452}
+--- !u!114 &2180070442877679452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317862825564317427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c50aa798a724ea44b3852bbd8d09339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
   timeBetweenShots: 0.1
   clipSize: 12
   reloadTime: 1
-  accuracy: 4
+  accuracy: 5
+  singleReload: 0
+  cools: 0
+  curClip: 0
+  reloading: 0
+  clipCools: 0
 --- !u!1 &9069542962138524845
 GameObject:
   m_ObjectHideFlags: 0
