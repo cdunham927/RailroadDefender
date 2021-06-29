@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2317862825484778878}
   m_Layer: 9
   m_Name: PistolCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,7 +257,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c50aa798a724ea44b3852bbd8d09339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
+  bullet: {fileID: 1134690250119455488, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
+  dmgLow: 2
+  dmgHigh: 4
+  critChance: 0.05
   timeBetweenShots: 0.1
   clipSize: 12
   reloadTime: 1

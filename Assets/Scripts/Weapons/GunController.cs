@@ -5,7 +5,11 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     //Thing to shoot
-    public GameObject bullet;
+    public BulletController2D bullet;
+    public float dmgLow;
+    public float dmgHigh;
+    protected float dmg;
+    public float critChance;
     public float timeBetweenShots = 0.1f;
     public int clipSize;
     public float reloadTime;
@@ -18,12 +22,24 @@ public class GunController : MonoBehaviour
 
     public void Initialize(GunController gun)
     {
+        reloading = false;
+        dmg = Random.Range(gun.dmgLow, gun.dmgHigh);
+        critChance = gun.critChance;
         bullet = gun.bullet;
         timeBetweenShots = gun.timeBetweenShots;
         clipSize = gun.clipSize;
         reloadTime = gun.reloadTime;
         accuracy = gun.accuracy;
     }
+
+    public virtual int GetCurrentClipSize() { return 0; }
+
+    private void OnEnable()
+    {
+        dmg = Random.Range(dmgLow, dmgHigh);
+        if (Random.value < critChance) dmg *= 1.5f;
+    }
+
     public virtual void Fire(GameObject spawnPoint) { }
     public virtual void StartReload() { }
 

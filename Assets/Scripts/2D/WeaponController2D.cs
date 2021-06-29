@@ -11,6 +11,7 @@ public class WeaponController2D : MonoBehaviour
 
     private void OnEnable()
     {
+        gun = GetComponent<GunController>();
         parent = transform.parent.GetComponent<PlayerController2D>();
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController2D : MonoBehaviour, IDamageable<float>
+public class PlayerController2D : MonoBehaviour, IDamageable<float>, IKillable
 {
     [Header("Health n shit")]
     public FloatVariable maxHealth;
@@ -23,15 +23,26 @@ public class PlayerController2D : MonoBehaviour, IDamageable<float>
 
     public bool canMove;
 
+    //public GameObjectList targets;
+    GameController cont;
+
+    //GunController gun;
+
     private void Awake()
     {
+        cont = FindObjectOfType<GameController>();
         bod = GetComponent<Rigidbody2D>();
+
+        //gun = GetComponentInChildren<WeaponController2D>().gun;
     }
 
     private void OnEnable()
     {
         health.Value = maxHealth.Value;
         stamina.Value = maxStamina.Value;
+
+        cont.AddTarget(transform, cont.targets);
+        cont.AddTarget(transform, cont.playerTargets);
     }
 
     public FloatVariable GetStamina()
@@ -47,6 +58,11 @@ public class PlayerController2D : MonoBehaviour, IDamageable<float>
     public void Damage(float amt)
     {
         health.Value -= amt;
+    }
+
+    public void Die()
+    {
+
     }
 
     private void FixedUpdate()

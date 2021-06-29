@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3092317756147701333}
   - component: {fileID: 3092317756147701334}
   - component: {fileID: 774809798499184814}
-  - component: {fileID: 774809798499184815}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -112,34 +111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968b51342446c164f8a617e90ba61557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
+  bullet: {fileID: 3389239768882039810, guid: 464c1925822117f4a861443cf3f0ba01, type: 3}
+  dmgLow: 1
+  dmgHigh: 3
+  critChance: 0.02
   timeBetweenShots: 0.25
   clipSize: 6
   reloadTime: 0.5
   accuracy: 5
   singleReload: 1
-  cools: 0
-  curClip: 0
-  reloading: 0
-  clipCools: 0
---- !u!114 &774809798499184815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3092317756147701339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c50aa798a724ea44b3852bbd8d09339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
-  timeBetweenShots: 0.1
-  clipSize: 12
-  reloadTime: 1
-  accuracy: 5
-  singleReload: 0
   cools: 0
   curClip: 0
   reloading: 0
@@ -159,7 +139,7 @@ GameObject:
   - component: {fileID: 3092317756336590294}
   m_Layer: 9
   m_Name: ShotgunCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

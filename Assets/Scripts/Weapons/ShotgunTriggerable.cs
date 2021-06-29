@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class ShotgunTriggerable : GunController
 {
+    public int shotCount = 10;
+    [Range(0.1f, 3f)]
+    public float spread = 1f;
+
     private void Awake()
     {
         curClip = clipSize;
+    }
+
+    public override int GetCurrentClipSize()
+    {
+        return curClip;
     }
 
     public override void StartReload()
@@ -20,14 +29,16 @@ public class ShotgunTriggerable : GunController
         if (cools <= 0 && curClip > 0)
         {
             //Debug.Log("Shooting");
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < shotCount; i++)
             {
-                GameObject obj = Instantiate(bullet, spawnPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, -10f + (2f * i)) * Quaternion.Euler(0, 0, Random.Range(-accuracy, accuracy)));
+                BulletController2D obj = Instantiate(bullet, spawnPoint.transform.position, transform.rotation * Quaternion.Euler(0, 0, -(spread * shotCount / 2) + spread * i) * Quaternion.Euler(0, 0, Random.Range(-accuracy, accuracy)));
+                obj.dmg = dmg;
+                if (Random.value <= critChance) obj.dmg = dmg * 3;
             }
             cools = timeBetweenShots;
             curClip--;
         }
-        else
+        else if (curClip <= 0)
         {
             //Debug.Log("Reloading");
             StartReload();

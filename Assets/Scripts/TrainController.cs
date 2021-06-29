@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainController : MonoBehaviour, IDamageable<float>, IKillable
+public class TrainController : MonoBehaviour, IDamageable<float>
 {
     public FloatVariable maxHp;
     float hp;

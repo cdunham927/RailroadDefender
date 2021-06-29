@@ -31,11 +31,15 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
 
     public bool canMove = true;
 
+    GunController gun;
+
     void OnEnable()
     {
         //bod = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
         hp = maxHp.Value;
+
+        gun = GetComponentInChildren<WeaponController2D>().gun;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -85,7 +89,17 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
         if (iframes > 0) iframes -= Time.deltaTime;
     }
 
-    public void Kill()
+    public int GetAmmo()
+    {
+        return gun.GetCurrentClipSize();
+    }
+
+    public int GetClipSize()
+    {
+        return gun.clipSize;
+    }
+
+    public void Die()
     {
 
     }
@@ -98,7 +112,7 @@ public class PlayerController : MonoBehaviour, IDamageable<float>, IKillable
 
             if (hp <= 0)
             {
-                Kill();
+                Die();
             }
 
             iframes = 0.01f;

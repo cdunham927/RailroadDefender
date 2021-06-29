@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968b51342446c164f8a617e90ba61557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1134690250119455493, guid: 3a8be3cd075d40b43ba712a0b65ad8fc, type: 3}
+  bullet: {fileID: 3389239768882039810, guid: 464c1925822117f4a861443cf3f0ba01, type: 3}
+  dmgLow: 1
+  dmgHigh: 3
+  critChance: 0.02
   timeBetweenShots: 0.25
   clipSize: 6
   reloadTime: 0.5
