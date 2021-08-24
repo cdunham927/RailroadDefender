@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -23,16 +24,35 @@ public class GameController : MonoBehaviour
     //Spawning enemies
     public bool canSpawn;
     public GameObject[] enemyArray;
-    public float timeBetweenSpawns;
-    float spawnCools;
+    //public float timeBetweenSpawns;
+    //float spawnCools;
     Vector2 bounds;
     Vector3 spawnPoint;
     //public float radius;
     public float sizeX;
     public float sizeY;
+    public int curNumEnemies = 0;
+
+    //Wave Spawning
+    public float timeBetweenSpawnsLow;
+    public float timeBetweenSpawnsHigh;
+    public float timeBetweenWavesLow;
+    public float timeBetweenWavesHigh;
+    public int enemiesPerWaveLow = 2;
+    public int enemiesPerWaveHigh = 5;
+    public float timeBetweenEnemies = 1f;
+    float cools;
+    float waveCools;
+    int enemiesToSpawn;
+    int enemiesThisWave = 0;
+
+    public Text waveText;
+    public int wavesThisLevel;
+    public int curWave;
 
     private void OnEnable()
     {
+        curNumEnemies = FindObjectsOfType<EnemyController>().Length;
         ui = FindObjectOfType<UIController>();
         cam = FindObjectOfType<CameraFollow2D>();
         camComp = cam.GetComponent<Camera>();
@@ -41,6 +61,12 @@ public class GameController : MonoBehaviour
         players[0].canMove = true;
         ui.SwitchUI(players[0]);
         cam.SetTarget(players[0].transform);
+    }
+
+    public void DeadEnemy(int n, GameObject en)
+    {
+        curNumEnemies += n;
+        //Debug.Log("Enemies left: " + curNumEnemies, en);
     }
 
     public void AddTarget(Transform t, List<Transform> ls)
@@ -82,7 +108,10 @@ public class GameController : MonoBehaviour
         }
         //Spawn the enemy
         Instantiate(enemyArray[Random.Range(0, enemyArray.Length)], spawnPoint, Quaternion.identity);
-        spawnCools = timeBetweenSpawns;
+        //We've spawned an enemy
+        enemiesThisWave++;
+        //Update cooldown
+        cools = Random.Range(timeBetweenSpawnsLow, timeBetweenSpawnsHigh);
     }
 
     private void Update()
@@ -104,10 +133,25 @@ public class GameController : MonoBehaviour
             }
         }
 
-        if (canSpawn)
+        if (cools > 0) cools -= Time.deltaTime;
+
+        if (cools <= 0 && canSpawn)
         {
-            if (spawnCools > 0) spawnCools -= Time.deltaTime;
-            if (spawnCools <= 0) SpawnEnemy();
+            if (enemiesThisWave < enemiesToSpawn && curWave <= wavesThisLevel) SpawnEnemy();
+        }
+
+        if (waveCools > 0 && curNumEnemies <= 0) waveCools -= Time.deltaTime;
+
+        if (waveCools <= 0 && curNumEnemies <= 0 && curWave < wavesThisLevel)
+        {
+            //Reset enemies spawned this wave
+            enemiesThisWave = 0;
+            curWave++;
+            //Set enemies we need to spawn
+            enemiesToSpawn = Random.Range(enemiesPerWaveLow, enemiesPerWaveHigh);
+
+            //Set the time to the next wave
+            waveCools = Random.Range(timeBetweenWavesLow, timeBetweenWavesHigh);
         }
 
         if (players.Length > 1 && Input.GetKeyDown(KeyCode.T))
@@ -118,6 +162,8 @@ public class GameController : MonoBehaviour
             cam.SetTarget(players[curPlayer].transform);
             players[curPlayer].canMove = true;
         }
+
+        waveText.text = "Wave " + curWave.ToString() + "\nEnemies left: " + curNumEnemies.ToString();
     }
 
     private void OnDrawGizmos()

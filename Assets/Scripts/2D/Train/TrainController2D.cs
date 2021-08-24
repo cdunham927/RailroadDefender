@@ -54,6 +54,11 @@ public class TrainController2D : MonoBehaviour, IDamageable<float>, IKillable
         if (health <= 0) Die();
     }
 
+    public void RestoreHp(float amt)
+    {
+        health += amt;
+    }
+
     public void Die()
     {
         Debug.Log("Train lost all cargo");

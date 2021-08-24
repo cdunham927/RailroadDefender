@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
 {
     public float maxHp;
-    float hp;
+    protected float hp;
     public float spd;
     public enum enemystates { chase, attack, retreat, leave }
     protected enemystates curState;
@@ -38,6 +38,8 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
     //public AnimationClip deathClip;
     public float deathTime = 0f;
 
+    bool deaded = false;
+
     private void Awake()
     {
         //startRot = uiParent.transform.rotation;
@@ -53,6 +55,8 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
 
     public virtual void OnEnable()
     {
+        cont.DeadEnemy(1, gameObject);
+        deaded = false;
         hp = maxHp;
         //curState = enemystates.chase;
         //GetTarget();
@@ -88,13 +92,7 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
         uiParent.transform.rotation = Quaternion.identity;
     }
 
-    public void Damage(float amt)
-    {
-        hp -= amt;
-        //Debug.Log(hp);
-
-        if (hp <= 0) Die();
-    }
+    public virtual void Damage(float amt) { }
 
     public void Die()
     {
@@ -103,6 +101,8 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
 
     void OnDisable()
     {
+        GameController cont = FindObjectOfType<GameController>();
+        cont.DeadEnemy(-1, gameObject);
         CancelInvoke();
     }
 

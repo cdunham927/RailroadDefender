@@ -19,6 +19,14 @@ public class RedGunner : EnemyController
         curState = enemystates.chase;
     }
 
+    public override void Damage(float amt)
+    {
+        hp -= amt;
+        //Debug.Log(hp);
+
+        if (hp <= 0) Die();
+    }
+
     public override void Chase()
     {
         if (target != null && target.gameObject.activeInHierarchy)

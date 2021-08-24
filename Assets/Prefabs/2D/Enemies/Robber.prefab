@@ -236,9 +236,11 @@ MonoBehaviour:
   yMin: 0.1
   accuracy: 5
   deathTime: 0
+  leaveSpd: 150
   timeToTake: 1
   totalTime: 0
   curTime: 0
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!61 &3820701565933284326
 BoxCollider2D:
   m_ObjectHideFlags: 0

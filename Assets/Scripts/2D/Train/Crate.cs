@@ -12,12 +12,19 @@ public class Crate : MonoBehaviour
     Vector3 startScale;
     public float scaleSize = 0.5f;
     bool hasHurt = false;
+    [HideInInspector]
+    public Vector3 startPos;
 
     private void Awake()
     {
         hasHurt = false;
         startScale = transform.localScale;
         train = FindObjectOfType<TrainController2D>();
+    }
+
+    private void OnEnable()
+    {
+        startPos = transform.position;
     }
 
     public Cargo GetCargo()
@@ -41,7 +48,7 @@ public class Crate : MonoBehaviour
         if (!hasHurt)
         {
             train.Damage(weight);
-            hasHurt = false;
+            hasHurt = true;
             //Destroy(gameObject);
             gameObject.SetActive(false);
         }

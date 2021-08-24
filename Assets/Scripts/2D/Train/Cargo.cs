@@ -65,6 +65,7 @@ public class Cargo : MonoBehaviour
     public void TakeCrate(Crate c)
     {
         crates.Remove(c);
+        //c.GetComponent<SpriteRenderer>().enabled = false;
         train.Damage(c.weight);
     }
 
@@ -83,5 +84,9 @@ public class Cargo : MonoBehaviour
     public void RestoreCrate(Crate c)
     {
         crates.Add(c);
+        c.transform.position = c.startPos;
+        c.transform.SetParent(null);
+        train.RestoreHp(c.weight);
+        //c.GetComponent<SpriteRenderer>().enabled = true;
     }
 }
