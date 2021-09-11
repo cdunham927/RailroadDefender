@@ -102,7 +102,7 @@ public class EnemyController : MonoBehaviour, IDamageable<float>, IKillable
     void OnDisable()
     {
         GameController cont = FindObjectOfType<GameController>();
-        cont.DeadEnemy(-1, gameObject);
+        if (cont != null) cont.DeadEnemy(-1, gameObject);
         CancelInvoke();
     }
 
